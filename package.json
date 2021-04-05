@@ -1,0 +1,56 @@
+{
+  "name": "vmx-sample",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@vue/cli-plugin-babel": "4.1.1",
+    "axios": "0.21.1",
+    "element-plus": "^1.0.2-beta.36",
+    "vmx-request": "3.0.0",
+    "vmx-router": "3.0.0",
+    "vmx-vuex": "3.0.0",
+    "vue": "3.0.9",
+    "vue-modx": "3.0.1",
+    "vue-router": "4.0.5",
+    "vuex": "4.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "^4.5",
+    "@vue/cli-service": "^4.5",
+    "@vue/compiler-sfc": "^3.0.9",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.0.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "keywords": [],
+  "description": ""
+}
