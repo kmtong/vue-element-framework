@@ -1,10 +1,10 @@
 <template>
-  <el-container direction="horizontal">
+  <el-container direction="horizontal" class="full-height">
     <Menu />
     <el-container direction="vertical">
       <Header></Header>
-      <el-main>
-        <router-view class="content" />
+      <el-main class="full-height">
+        <router-view />
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -20,13 +20,7 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  margin-top: 20px;
-}
-.content {
-  padding-left: 50px;
-  width: 500px;
-  display: inline-block;
+.full-height {
+  height: 100%;
 }
 </style>

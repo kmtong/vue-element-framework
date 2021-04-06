@@ -21,17 +21,24 @@ export default {
         namespaced: true,
         state: () => {
           return {
-            "menuCollapsed": false
+            "menuCollapsed": false,
+            "navMenuIndex": null
           };
         },
         getters: {
           menuCollapsed(state) {
             return state.menuCollapsed;
+          },
+          navMenuIndex(state) {
+            return state.navMenuIndex;
           }
         },
         mutations: {
           setMenuCollapsed(state, collapse) {
             state.menuCollapsed = collapse
+          },
+          setNavMenuIndex(state, navMenuIndex) {
+            state.navMenuIndex = navMenuIndex
           }
         }
       }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="main">
     <router-view />
   </div>
 </template>
@@ -10,21 +10,15 @@ export default {
 </script>
 
 <style>
-body {
-  padding: 0;
-  margin: 0;
+html, body, #app {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
 }
-#app {
+#main {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-}
-.left-menu {
-  width: 100px;
-  display: block;
-  float: left;
-}
-.content {
-  padding-left: 50px;
-  width: 500px;
-  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
 }
 </style>

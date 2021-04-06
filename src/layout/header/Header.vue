@@ -1,40 +1,39 @@
 <template>
-  <el-header class="headerCls">
-    <el-menu style="padding: 0"
-      :default-active="1"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item index="0">
-        <i :class="collapseIcon" @click="setMenuCollapsed(!menuCollapsed)"></i>
-      </el-menu-item>
-      <div>Testing</div>
-      <el-menu-item index="1">处理中心</el-menu-item>
-      <el-submenu index="2">
-        <template #title>我的工作台</template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-        <el-menu-item index="2-3">选项3</el-menu-item>
-        <el-submenu index="2-4">
-          <template #title>选项4</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="3" disabled>消息中心</el-menu-item>
-      <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
-    </el-menu>
-    <span>王小虎</span>
+  <el-header class="header-cls">
+    <el-container direction="horizontal" class="header-full-width">
+      <div class="hamburger-nav-item" @click="setMenuCollapsed(!menuCollapsed)">
+        <i :class="collapseIcon"></i>
+      </div>
+      <el-menu :default-active="navMenuIndex"
+        mode="horizontal"
+        @select="handleSelect"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b">
+        <!-- sample nav menu -->
+        <el-menu-item index="1">处理中心</el-menu-item>
+        <el-menu-item index="3">消息中心</el-menu-item>
+      </el-menu>
+      <div class="widget-nav-item">
+        <!-- nav widget area -->
+      </div>
+      <div class="avatar-nav-item">
+        <!-- user area -->
+        <span>John Chan {{navMenuIndex}}</span>
+      </div>
+    </el-container>
   </el-header>
 </template>
 <script>
 import {mapGetters, mapMutations} from "vuex"
 export default {
+  data() {
+    return {
+      activeIndex: "1"
+    }
+  },
   computed: {
-    ...mapGetters("layout", ["menuCollapsed"]),
+    ...mapGetters("layout", ["menuCollapsed", "navMenuIndex"]),
     collapseIcon() {
       if (this.menuCollapsed) {
         return "el-icon-s-unfold";
@@ -44,12 +43,55 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("layout", ["setMenuCollapsed"]),
+    ...mapMutations("layout", ["setMenuCollapsed", "setNavMenuIndex"]),
+    handleSelect(menuIndex) {
+      this.setNavMenuIndex(menuIndex);
+    }
   }
 }
 </script>
 <style scoped>
-.headerCls {
+.header-cls {
   padding: 0;
+  width: 100%;
+  background-color: #545c64;
 }
+
+.header-full-width {
+  width: 100%;
+}
+
+.hamburger-nav-item {
+  font-size: 18px;
+  height: 60px;
+  line-height: 56px;
+  padding: 0 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hamburger-nav-item:hover {
+  background-color: #fff;
+  color: #545c64;
+}
+
+.widget-nav-item {
+  font-size: 14px;
+  height: 60px;
+  line-height: 56px;
+  padding: 0 20px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.avatar-nav-item {
+  font-size: 14px;
+  height: 60px;
+  line-height: 56px;
+  padding: 0 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
 </style>
