@@ -10,6 +10,7 @@ export default {
       }
     ],
     menu: { link: "/", label: "Home" },
+    nav: { link: "/", label: "Home" },
     "vuex.state": {
       username: "Global Username"
     },

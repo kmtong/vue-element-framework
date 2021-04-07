@@ -1,42 +1,100 @@
 <template>
-  <el-menu class="left-menu" @open="handleOpen" @close="handleClose" @select="handleSelect" :router="true" :collapse="menuCollapsed">
-    <el-menu-item  v-for="(item, idx) in menuItems" :key="idx" :index="item.link">
-      <!-- <router-link :to="item.link">{{ item.label }}</router-link> -->
-      <i class="el-icon-menu"></i>
-      <template #title>{{ item.label }}</template>
-    </el-menu-item>
-  </el-menu>
+  <div>
+    <div class="logo-area" :style="logoAreaStyle">
+      <transition name="el-fade-in">
+        <component :is="logoNormal" v-show="!menuCollapsed" class="logo-normal" />
+      </transition>
+      <transition name="el-fade-in">
+        <component :is="logoCollapsed" v-show="menuCollapsed" class="logo-collapse" />
+      </transition>
+    </div>
+    <el-menu
+      class="left-menu"
+      :background-color="menuBgColor"
+      :text-color="menuTextColor"
+      :active-text-color="menuActiveTextColor"
+      :default-active="menuIndex"
+      :router="true"
+      :collapse="menuCollapsed"
+      @open="handleOpen"
+      @close="handleClose"
+      @select="handleSelect"
+    >
+      <el-menu-item
+        v-for="(item, idx) in menuItems"
+        :key="idx"
+        :index="item.link"
+      >
+        <!-- <router-link :to="item.link">{{ item.label }}</router-link> -->
+        <i class="el-icon-menu"></i>
+        <template #title>{{ item.label }}</template>
+      </el-menu-item>
+    </el-menu>
+  </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters("layout", ["menuCollapsed"]),
+    ...mapGetters("layout", ["menuCollapsed", "menuIndex"]),
     menuItems() {
       // vue-modx will inject $pluginRegistry property
       return this.$pluginRegistry.moduleVarGet("menu", "menuItems");
     },
+    menuBgColor() {
+      return this.$pluginRegistry.moduleVarGet("layout", "menuBgColor");
+    },
+    menuTextColor() {
+      return this.$pluginRegistry.moduleVarGet("layout", "menuTextColor");
+    },
+    menuActiveTextColor() {
+      return this.$pluginRegistry.moduleVarGet("layout", "menuActiveTextColor");
+    },
+    navBgColor() {
+      return this.$pluginRegistry.moduleVarGet("layout", "navBgColor");
+    },
+    logoNormal() {
+      return this.$pluginRegistry.moduleVarGet("layout", "logoNormal");
+    },
+    logoCollapsed() {
+      return this.$pluginRegistry.moduleVarGet("layout", "logoCollapsed");
+    },
+    logoAreaStyle() {
+      return {
+        "background-color": this.navBgColor
+      }
+    }
   },
   methods: {
-  handleOpen(key, keyPath) {
-    console.log(key, keyPath);
+    ...mapMutations("layout", ["setMenuIndex"]),
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleSelect(key) {
+      this.setMenuIndex(key);
+    }
   },
-  handleClose(key, keyPath) {
-    console.log(key, keyPath);
-  },
-  // handleSelect(key, keyPath) {
-  //   console.log(key, keyPath);
-  //   this.$router.push(key)
-  // }
-}
 };
 </script>
 
 <style>
+.left-menu {
+  height: 100%;
+}
 .left-menu:not(.el-menu--collapse) {
   width: 200px;
-  min-height: 400px;
+  /* min-height: 400px; */
+}
+.logo-area {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

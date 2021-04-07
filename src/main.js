@@ -11,6 +11,8 @@ import App from "./App.vue";
 import Layout from "./layout/module.js";
 import Home from "./home/module.js";
 import Module1 from "./module1/module.js";
+import LogoNormal from "./logo/normal.vue";
+import LogoCollapsed from "./logo/collapsed.vue";
 
 let app = createApp(App);
 
@@ -29,6 +31,14 @@ app.use(VueModx, {
       routes: [],
       scrollBehavior: () => ({ y: 0 }), // see https://router.vuejs.org/guide/advanced/scroll-behavior.html#async-scrolling
       mode: "hash" // default "history"
+    },
+    layout: {
+      // navBgColor: "#4ca1f2",
+      // menuBgColor: "#545c64",
+      // menuTextColor: "#ffffff",
+      // menuActiveTextColor: "#ffd04b",
+      logoNormal: LogoNormal,
+      logoCollapsed: LogoCollapsed
     }
   }
 });

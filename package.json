@@ -11,6 +11,7 @@
     "@vue/cli-plugin-babel": "4.1.1",
     "axios": "0.21.1",
     "element-plus": "^1.0.2-beta.36",
+    "local-storage": "^2.0.0",
     "vmx-request": "3.0.0",
     "vmx-router": "3.0.0",
     "vmx-vuex": "3.0.0",
