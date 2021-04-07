@@ -14,7 +14,6 @@
       :text-color="menuTextColor"
       :active-text-color="menuActiveTextColor"
       :default-active="menuIndex"
-      :router="true"
       :collapse="menuCollapsed"
       @open="handleOpen"
       @close="handleClose"
@@ -23,10 +22,10 @@
       <el-menu-item
         v-for="(item, idx) in menuItems"
         :key="idx"
-        :index="item.link"
+        :index="item.id"
       >
-        <!-- <router-link :to="item.link">{{ item.label }}</router-link> -->
-        <i class="el-icon-menu"></i>
+        <i :class="`el-icon-${item.icon}`" v-if="item.icon"></i>
+        <i class="el-icon-menu" v-if="!item.icon"></i>
         <template #title>{{ item.label }}</template>
       </el-menu-item>
     </el-menu>
@@ -75,8 +74,17 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    handleSelect(key) {
-      this.setMenuIndex(key);
+    handleSelect(menuId) {
+      const menu = this.menuItems.find(i => i.id === menuId)
+      if (menu.selectFn && typeof(menu.selectFn) === 'function') {
+        menu.selectFn();
+      }
+      if (!menu.ignoreState) {
+        this.setMenuIndex(menuId);
+      }
+      if (menu.link) {
+        this.$router.push(menu.link);
+      }
     }
   },
 };

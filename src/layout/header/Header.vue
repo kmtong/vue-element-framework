@@ -10,10 +10,10 @@
         :background-color="navBgColor"
         :text-color="navTextColor"
         :active-text-color="navActiveTextColor"
-        :router="true"
         @select="handleSelect"
       >
-        <el-menu-item v-for="(nav, idx) in navItems" :key="idx" :index="nav.link">
+        <el-menu-item v-for="(nav, idx) in navItems" :key="idx" :index="nav.id">
+          <i :class="`el-icon-${nav.icon}`" v-if="nav.icon"></i>
           <template #title>{{ nav.label }}</template>
         </el-menu-item>
       </el-menu>
@@ -65,8 +65,17 @@ export default {
   },
   methods: {
     ...mapMutations("layout", ["setMenuCollapsed", "setNavMenuIndex"]),
-    handleSelect(menuIndex) {
-      this.setNavMenuIndex(menuIndex);
+    handleSelect(navId) {
+      const nav = this.navItems.find(i => i.id === navId)
+      if (nav.selectFn && typeof(nav.selectFn) === 'function') {
+        nav.selectFn();
+      }
+      if (!nav.ignoreState) {
+        this.setNavMenuIndex(navId);
+      }
+      if (nav.link) {
+        this.$router.push(nav.link);
+      }
     },
   },
 };

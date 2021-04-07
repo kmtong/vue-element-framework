@@ -9,8 +9,8 @@ export default {
         children: [{ path: "/", component: () => import("./Home.vue") }]
       }
     ],
-    menu: { link: "/", label: "Home" },
-    nav: { link: "/", label: "Home" },
+    menu: { id: "home", link: "/", icon: "s-home", label: "Home" },
+    nav: { id: "home", link: "/", icon: "s-home", label: "Home", ignoreState: true, selectFn: () => { alert("Home Nav Selected")} },
     "vuex.state": {
       username: "Global Username"
     },

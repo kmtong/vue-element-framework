@@ -14,7 +14,7 @@ export default {
         ]
       }
     ],
-    menu: { link: "/module1", label: "Module1" },
-    nav: { link: "/module1", label: "Module1" }
+    menu: { id: "module1", link: "/module1", label: "Module1", icon: "s-custom" },
+    nav: { id: "module1", link: "/module1", label: "Module1" }
   }
 };
