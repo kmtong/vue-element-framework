@@ -12,10 +12,7 @@
         :active-text-color="navActiveTextColor"
         @select="handleSelect"
       >
-        <el-menu-item v-for="(nav, idx) in navItems" :key="idx" :index="nav.id">
-          <i :class="`el-icon-${nav.icon}`" v-if="nav.icon"></i>
-          <template #title>{{ nav.label }}</template>
-        </el-menu-item>
+        <menu-item v-for="(nav, idx) in navItems" :key="idx" :item="nav" />
       </el-menu>
       <div class="widget-nav-item">
         <!-- nav widget area -->
@@ -29,10 +26,16 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import MenuItem from "../menu/MenuItem.vue";
+import MenuMixins from "../menu/mixins/menu-mixins";
+
 export default {
+  components: {
+    MenuItem,
+  },
+  mixins: [MenuMixins],
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters("layout", ["menuCollapsed", "navMenuIndex"]),
@@ -57,25 +60,16 @@ export default {
     },
     headerStyle() {
       return {
-        "padding": 0,
-        "width": "100%",
-        "background-color": this.navBgColor
-      }
-    }
+        padding: 0,
+        width: "100%",
+        "background-color": this.navBgColor,
+      };
+    },
   },
   methods: {
     ...mapMutations("layout", ["setMenuCollapsed", "setNavMenuIndex"]),
     handleSelect(navId) {
-      const nav = this.navItems.find(i => i.id === navId)
-      if (nav.selectFn && typeof(nav.selectFn) === 'function') {
-        nav.selectFn();
-      }
-      if (!nav.ignoreState) {
-        this.setNavMenuIndex(navId);
-      }
-      if (nav.link) {
-        this.$router.push(nav.link);
-      }
+      this.handleMenuSelect(this.navItems, navId, this.setNavMenuIndex);
     },
   },
 };

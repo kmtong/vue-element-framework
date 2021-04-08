@@ -1,12 +1,8 @@
 <template>
   <div>
     <div class="logo-area" :style="logoAreaStyle">
-      <transition name="el-fade-in">
-        <component :is="logoNormal" v-show="!menuCollapsed" class="logo-normal" />
-      </transition>
-      <transition name="el-fade-in">
-        <component :is="logoCollapsed" v-show="menuCollapsed" class="logo-collapse" />
-      </transition>
+      <component :is="logoNormal" v-show="!menuCollapsed" class="logo-normal" />
+      <component :is="logoSmall" v-show="menuCollapsed" class="logo-collapse" />
     </div>
     <el-menu
       class="left-menu"
@@ -19,23 +15,21 @@
       @close="handleClose"
       @select="handleSelect"
     >
-      <el-menu-item
-        v-for="(item, idx) in menuItems"
-        :key="idx"
-        :index="item.id"
-      >
-        <i :class="`el-icon-${item.icon}`" v-if="item.icon"></i>
-        <i class="el-icon-menu" v-if="!item.icon"></i>
-        <template #title>{{ item.label }}</template>
-      </el-menu-item>
+      <menu-item v-for="(item, idx) in menuItems" :key="idx" :item="item" />
     </el-menu>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import MenuItem from "./MenuItem.vue";
+import MenuMixins from "./mixins/menu-mixins";
 
 export default {
+  components: {
+    MenuItem,
+  },
+  mixins: [MenuMixins],
   computed: {
     ...mapGetters("layout", ["menuCollapsed", "menuIndex"]),
     menuItems() {
@@ -57,14 +51,14 @@ export default {
     logoNormal() {
       return this.$pluginRegistry.moduleVarGet("layout", "logoNormal");
     },
-    logoCollapsed() {
+    logoSmall() {
       return this.$pluginRegistry.moduleVarGet("layout", "logoCollapsed");
     },
     logoAreaStyle() {
       return {
-        "background-color": this.navBgColor
-      }
-    }
+        "background-color": this.navBgColor,
+      };
+    },
   },
   methods: {
     ...mapMutations("layout", ["setMenuIndex"]),
@@ -75,17 +69,8 @@ export default {
       console.log(key, keyPath);
     },
     handleSelect(menuId) {
-      const menu = this.menuItems.find(i => i.id === menuId)
-      if (menu.selectFn && typeof(menu.selectFn) === 'function') {
-        menu.selectFn();
-      }
-      if (!menu.ignoreState) {
-        this.setMenuIndex(menuId);
-      }
-      if (menu.link) {
-        this.$router.push(menu.link);
-      }
-    }
+      this.handleMenuSelect(this.menuItems, menuId, this.setMenuIndex);
+    },
   },
 };
 </script>
