@@ -69,7 +69,7 @@ export default {
       console.log(key, keyPath);
     },
     handleSelect(menuId) {
-      this.handleMenuSelect(this.menuItems, menuId, this.setMenuIndex);
+      this.handleMenuSelect(this.menuItems, menuId, this.setMenuIndex, this.menuIndex);
     },
   },
 };

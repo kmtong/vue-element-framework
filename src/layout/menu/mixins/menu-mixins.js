@@ -1,6 +1,6 @@
 export default {
     methods: {
-        handleMenuSelect(menuItems, menuId, persistStateFn) {
+        handleMenuSelect(menuItems, menuId, persistStateFn, origState) {
             const menu = this.findMenuItem(menuItems, menuId);
             if (!menu) {
                 console.error("Cannot find menu id: ", menuId);
@@ -9,8 +9,15 @@ export default {
             if (menu.selectFn && typeof menu.selectFn === "function") {
                 menu.selectFn();
             }
-            if (!menu.ignoreState && persistStateFn) {
-                persistStateFn(menuId);
+            if (!menu.ignoreState) {
+                if (persistStateFn) {
+                    persistStateFn(menuId);
+                }
+            } else {
+                if (persistStateFn) {
+                    persistStateFn(null);
+                    this.$nextTick(() => persistStateFn(origState));
+                }
             }
             if (menu.link) {
                 this.$router.push(menu.link);

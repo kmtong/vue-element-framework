@@ -69,7 +69,7 @@ export default {
   methods: {
     ...mapMutations("layout", ["setMenuCollapsed", "setNavMenuIndex"]),
     handleSelect(navId) {
-      this.handleMenuSelect(this.navItems, navId, this.setNavMenuIndex);
+      this.handleMenuSelect(this.navItems, navId, this.setNavMenuIndex, this.navMenuIndex);
     },
   },
 };

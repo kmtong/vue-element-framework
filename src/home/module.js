@@ -17,7 +17,7 @@ export default {
       id: "home", link: "/", icon: "s-home", label: "Home", ignoreState: true,
       selectFn: () => {
         alert("Home Nav Selected")
-      }, children: [{ id: "home2", label: "Home2", link: "/", icon: "s-home" }]
+      }
     },
     "vuex.state": {
       username: "Global Username"
