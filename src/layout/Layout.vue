@@ -24,3 +24,9 @@ export default {
   height: 100%;
 }
 </style>
+<style>
+.el-menu-item, .el-submenu__title, .el-submenu .el-menu-item {
+  height: 43px;
+  line-height: 43px;
+}
+</style>
