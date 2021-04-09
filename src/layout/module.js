@@ -81,7 +81,7 @@ export default {
 
     this.setModVar("logoNormal", null, config.layout, registry)
     this.setModVar("logoCollapsed", null, config.layout, registry)
-  
+    this.setModVar("logoBgColor", "#545c64", config.layout, registry)
   },
   setModVar(varname, dftVal, layoutCfg, registry) {
     const value = (layoutCfg && layoutCfg[varname]) ? layoutCfg[varname] : dftVal

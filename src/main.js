@@ -38,7 +38,8 @@ app.use(VueModx, {
       // menuTextColor: "#ffffff",
       // menuActiveTextColor: "#ffd04b",
       logoNormal: LogoNormal,
-      logoCollapsed: LogoCollapsed
+      logoCollapsed: LogoCollapsed,
+      // logoBgColor: "#ffffff"
     }
   }
 });

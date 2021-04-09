@@ -1,6 +1,6 @@
 <template>
-  <div :style="leftSideStyle">
-    <div class="logo-area">
+  <div :style="menuBgStyle">
+    <div class="logo-area" :style="logoBgStyle">
       <component :is="logoNormal" v-show="!menuCollapsed" class="logo-normal" />
       <component :is="logoSmall" v-show="menuCollapsed" class="logo-collapse" />
     </div>
@@ -54,9 +54,17 @@ export default {
     logoSmall() {
       return this.$pluginRegistry.moduleVarGet("layout", "logoCollapsed");
     },
-    leftSideStyle() {
+    logoBgColor() {
+      return this.$pluginRegistry.moduleVarGet("layout", "logoBgColor");
+    },
+    menuBgStyle() {
       return {
-        "background-color": this.navBgColor,
+        "background-color": this.menuBgColor,
+      };
+    },
+    logoBgStyle() {
+      return {
+        "background-color": this.logoBgColor,
       };
     },
   },
